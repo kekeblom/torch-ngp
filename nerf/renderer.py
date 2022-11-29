@@ -292,12 +292,7 @@ class NeRFRenderer(nn.Module):
         weights_sum = weights.sum(dim=-1)  # [N]
 
         # calculate depth
-        ori_z_vals = (z_vals - nears) / (fars - nears)
         depth = (weights * z_vals).sum(dim=-1)
-
-        # depth = (weights * ori_z_vals).sum(dim=-1)
-        # ori_z_vals = ((z_vals - nears) / (fars - nears)).clamp(0, 1)
-        # depth = torch.sum(weights * ori_z_vals, dim=-1)
 
         # calculate color
         weights = weights.unsqueeze(-1)
